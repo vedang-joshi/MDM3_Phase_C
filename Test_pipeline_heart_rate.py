@@ -1,4 +1,4 @@
-# code run on Mac, change dir name on line 17 
+# code run on Mac, change dir name on line 17 to run on windows
 
 import pandas as pd # version 1.0.5
 import matplotlib.pyplot as plt
@@ -11,10 +11,9 @@ def file_ext_to_list(empty_list, ext):
             if os.path.splitext(file_name)[-1] == ext:
                 empty_list.append(file_name)
 
-
 # get log file in list to iterate over later
 # dir is directory where script is run from; also the directory which contains the log files
-dir = '/Users/vedangjoshi/PycharmProjects/MDM3_Phase_C'
+dir = '/Users/vedangjoshi/PycharmProjects/MDM3_Phase_C/Heart_Rate_Data'
 log_extension = '.log'
 csv_extension = '.csv'
 
@@ -23,7 +22,7 @@ file_ext_to_list(log_file_name_list, log_extension)
 
 # Convert log file to csv and save to list
 for logfile in log_file_name_list:
-    df = pd.read_fwf(logfile)
+    df = pd.read_fwf(dir+'/'+logfile)
     df.to_csv(logfile[:-4]+'.csv')
 
 # get csv file in list to iterate over later
@@ -34,7 +33,7 @@ file_ext_to_list(csv_file_name_list, csv_extension)
 # Get continuous time series heart rate and plot
 dataframe_list = []
 for csvfile in csv_file_name_list:
-    dataframe_log = pd.read_csv(csvfile)
+    dataframe_log = pd.read_csv(dir+'/'+csvfile)
     # get two dataframes with offset and heart rate
     dataframe_offset = dataframe_log[dataframe_log['version : 3.11.3'].str.contains('offset')]
     dataframe_log = dataframe_log[dataframe_log['version : 3.11.3'].str.contains('hr_value')]
