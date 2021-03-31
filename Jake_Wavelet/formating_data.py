@@ -5,7 +5,9 @@ from load_UCI_HAR_dataset import *
 
 folder_ucihar = '/Users/jakebeard/Documents/GitHub/UCIHARDataset/'
 train_signals_ucihar, train_labels_ucihar, test_signals_ucihar, test_labels_ucihar = load_ucihar_data(folder_ucihar)
-print(train_signals_ucihar, 'labels',train_labels_ucihar, test_signals_ucihar, 'labels',test_labels_ucihar)
+print(train_signals_ucihar, '\nlabels\n',train_labels_ucihar, test_signals_ucihar, '\nlabels\n',test_labels_ucihar)
+print(train_signals_ucihar.shape, '\nlabels\n',len(train_labels_ucihar_), test_signals_ucihar.shape, '\nlabels\n',len(test_labels_ucihar))
+
 MAX_SCALE = 127
 scales = range(1,MAX_SCALE+1)
 DIMENSIONS = 9
