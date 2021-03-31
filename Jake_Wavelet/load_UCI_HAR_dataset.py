@@ -30,7 +30,3 @@ def load_ucihar_data(folder):
     train_labels = read_labels_ucihar(labelfile_train)
     test_labels = read_labels_ucihar(labelfile_test)
     return train_signals, train_labels, test_signals, test_labels
-
-folder_ucihar = '/Users/jakebeard/Documents/GitHub/UCIHARDataset/'
-train_signals_ucihar, train_labels_ucihar, test_signals_ucihar, test_labels_ucihar = load_ucihar_data(folder_ucihar)
-print(train_signals_ucihar, train_labels_ucihar, test_signals_ucihar, test_labels_ucihar)
