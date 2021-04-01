@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 
 def readFile(infile):
     regex = re.compile('(?:\s*([+-]?\d*.\d*))')
-    end = len(lines)
     
     with open(infile) as f:
         lines = f.readlines()
@@ -16,7 +15,7 @@ def readFile(infile):
         z  = []
         tfps = []
 
-    for line in lines[25:(end-3)]:
+    for line in lines[25:]:
             linedata = regex.findall(line)
             x.append(float(linedata[0]))
             y.append(float(linedata[1]))
