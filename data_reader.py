@@ -8,6 +8,7 @@ def readFile(infile):
 
     with open(infile) as f:
         lines = f.readlines()
+        lines = lines[:-2]
 
         x   = []
         y   = []
