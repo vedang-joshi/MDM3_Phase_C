@@ -32,7 +32,7 @@ bData1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Breast_data1.txt'
 bData2 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/breast__1.txt'
 cData1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/crawl__3.txt'
 
-read = readFile(bData2)
+read = readFile(bData1)
 
 df = pd.DataFrame(read)
 print(df)
