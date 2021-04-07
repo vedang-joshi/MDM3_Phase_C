@@ -1,31 +1,31 @@
 import numpy as np
 import pywt
 import pywt.data
-from load_UCI_HAR_dataset import *
+from transforming_data import *
+train_signals_ucihar, train_labels_ucihar, test_signals_ucihar, test_labels_ucihar = train_data, train_labels, test_data, test_labels
+print('\n train data \n', train_signals_ucihar, '\n train data shape \n', test_signals_ucihar.shape)
+print( '\n train labels \n',train_labels_ucihar,'\n train labels length \n',len(test_labels_ucihar))
 
-folder_ucihar = '/Users/jakebeard/Documents/GitHub/UCIHARDataset/'
-train_signals_ucihar, train_labels_ucihar, test_signals_ucihar, test_labels_ucihar = load_ucihar_data(folder_ucihar)
-print('\n train data shape \n',train_signals_ucihar.shape, '\n train labels \n',train_labels_ucihar,'\n train labels length \n',len(train_labels_ucihar))
-
-MAX_SCALE = 127
+MAX_SCALE = 60
 scales = range(1,MAX_SCALE+1)
-DIMENSIONS = 9
+DIMENSIONS = 4
 waveletname = 'morl'
-train_size = 1000
-test_size= 100
+train_size = 100
+test_size= 10
 
 # MIGIHT NEED TO CHANGE THE 9 HERE TO HOW MANY DIMENSIONS OUR DATA IS....
 # PROBABLY 4... ACCELEROMETER X,Y,Z AND HEART RATE
 train_data_cwt = np.ndarray(shape=(train_size, MAX_SCALE, MAX_SCALE, DIMENSIONS))
 
 for ii in range(0,train_size):
-    if ii % 1000 == 0:
+    if ii % 100 == 0:
         print(ii)
     for jj in range(0,DIMENSIONS):
         signal = train_signals_ucihar[ii, :, jj]
         coeff, freq = pywt.cwt(signal, scales, waveletname, 1)
         coeff_ = coeff[:,:MAX_SCALE]
         train_data_cwt[ii, :, :, jj] = coeff_
+print('made it past train')
 
 test_data_cwt = np.ndarray(shape=(test_size, MAX_SCALE, MAX_SCALE, DIMENSIONS))
 for ii in range(0,test_size):

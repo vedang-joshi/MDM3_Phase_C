@@ -3,15 +3,18 @@ from keras.layers import Dense, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras.models import Sequential
 from keras.callbacks import History
-from formating_data import x_train,y_train,x_test, y_test
+from formating_our_data import x_train,y_train,x_test, y_test, DIMENSIONS, MAX_SCALE
 history = History()
 
-img_x = 127
-img_y = 127
-img_z = 9
+
+img_x = DIMENSIONS
+img_y = DIMENSIONS
+img_z = MAX_SCALE
 input_shape = (img_x, img_y, img_z)
 
-num_classes = 6
+num_classes = DIMENSIONS
+
+''' NOT SURE WHAT batch_size IS '''
 batch_size = 16
 epochs = 10
 

@@ -56,9 +56,8 @@ for i in range(0,int(len(labels)/3)):
 #test_data = [j for i in test_data for j in i]
 print('len after ', len(labels))
 train_labels = labels
-train_data = formatted_data
-
-print(train_data)
+train_data = np.asarray(formatted_data)
+test_data = np.asarray(test_data)
 print(test_data)
-print(train_labels)
+
 print(test_labels)
