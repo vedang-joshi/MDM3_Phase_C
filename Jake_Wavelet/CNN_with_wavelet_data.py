@@ -13,7 +13,6 @@ input_shape = (img_x, img_y, img_z)
 
 num_classes = 6
 batch_size = 16
-num_classes = 7
 epochs = 10
 
 x_train = x_train.astype('float32')

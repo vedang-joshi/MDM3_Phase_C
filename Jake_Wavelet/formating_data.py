@@ -5,15 +5,14 @@ from load_UCI_HAR_dataset import *
 
 folder_ucihar = '/Users/jakebeard/Documents/GitHub/UCIHARDataset/'
 train_signals_ucihar, train_labels_ucihar, test_signals_ucihar, test_labels_ucihar = load_ucihar_data(folder_ucihar)
-print(train_signals_ucihar, '\nlabels\n',train_labels_ucihar, test_signals_ucihar, '\nlabels\n',test_labels_ucihar)
-print(train_signals_ucihar.shape, '\nlabels\n',len(train_labels_ucihar_), test_signals_ucihar.shape, '\nlabels\n',len(test_labels_ucihar))
+print('\n train data \n', train_signals_ucihar, '\n train data shape \n',train_signals_ucihar.shape, '\n train labels \n',train_labels_ucihar,'\n train labels length \n',len(train_labels_ucihar))
 
 MAX_SCALE = 127
 scales = range(1,MAX_SCALE+1)
 DIMENSIONS = 9
 waveletname = 'morl'
-train_size = 5000
-test_size= 500
+train_size = 1000
+test_size= 100
 
 # MIGIHT NEED TO CHANGE THE 9 HERE TO HOW MANY DIMENSIONS OUR DATA IS....
 # PROBABLY 4... ACCELEROMETER X,Y,Z AND HEART RATE
@@ -46,4 +45,4 @@ y_train = list(uci_har_labels_train[:train_size])
 x_test = test_data_cwt
 y_test = list(uci_har_labels_test[:test_size])
 
-print(x_train, y_train)
+print('the data\n\n', x_train, '\n\nthe labels\n', y_train)
