@@ -6,9 +6,9 @@ train_signals_ucihar, train_labels_ucihar, test_signals_ucihar, test_labels_ucih
 print('\n train data \n', train_signals_ucihar, '\n train data shape \n', test_signals_ucihar.shape)
 print( '\n train labels \n',train_labels_ucihar,'\n train labels length \n',len(test_labels_ucihar))
 
-MAX_SCALE = 60
+
 scales = range(1,MAX_SCALE+1)
-DIMENSIONS = 4
+
 waveletname = 'morl'
 train_size = 100
 test_size= 10

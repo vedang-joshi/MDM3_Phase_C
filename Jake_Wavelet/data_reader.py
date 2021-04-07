@@ -16,7 +16,7 @@ def readFile(infile):
 
     for line in lines[25:]:
             linedata = regex.findall(line)
-            transformed_data.append(np.array([float(linedata[0]),float(linedata[1]),float(linedata[2]),float(linedata[3])]))
+            transformed_data.append(np.array([float(linedata[0]),float(linedata[1]),float(linedata[2])]))
             x.append(float(linedata[0]))
             y.append(float(linedata[1]))
             z.append(float(linedata[2]))

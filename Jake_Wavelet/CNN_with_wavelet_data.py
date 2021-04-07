@@ -7,10 +7,11 @@ from formating_our_data import x_train,y_train,x_test, y_test, DIMENSIONS, MAX_S
 history = History()
 
 
-img_x = DIMENSIONS
-img_y = DIMENSIONS
-img_z = MAX_SCALE
+img_x = MAX_SCALE
+img_y = MAX_SCALE
+img_z = DIMENSIONS
 input_shape = (img_x, img_y, img_z)
+print('input_shape', input_shape)
 
 num_classes = DIMENSIONS
 
@@ -26,6 +27,7 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 
 
 model = Sequential()
+# Error here
 model.add(Conv2D(32, kernel_size=(5, 5), strides=(1, 1),
                  activation='relu',
                  input_shape=input_shape))

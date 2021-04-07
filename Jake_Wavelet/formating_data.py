@@ -28,6 +28,7 @@ for ii in range(0,train_size):
         train_data_cwt[ii, :, :, jj] = coeff_
 
 test_data_cwt = np.ndarray(shape=(test_size, MAX_SCALE, MAX_SCALE, DIMENSIONS))
+print(test_data_cwt.shape)
 for ii in range(0,test_size):
     if ii % 100 == 0:
         print(ii)

@@ -11,17 +11,21 @@ drown_data1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/crawl_drowning1.tx
 crawl_data1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/crawl_swimming1.txt'
 
 drowning = [1,drown_data1,drown_data2]
-brest = [2, brest_data1]
+brest = [2, brest_data1, crawl_data1]
 crawl = [3, crawl_data1]
 all_data = [drowning,brest,crawl]
-#all_data = [crawl]
 
+# DIMENSIONS is the number of variables we consider in the CNN (e.g. accelerometer x,y,z,heart rate ...)
+DIMENSIONS = 3
+#all_data = [drowning, brest]
+# MAX_SCALE is the number of data point in each chunk that the labels are assigned to 
+MAX_SCALE = 100
 labels = []
 formatted_data = []
 for data in all_data:
     for set_of_data in data[1:]:
         trash_data, read_data = readFile(set_of_data)
-        split_by_secs = 60
+        split_by_secs = MAX_SCALE
         remainder = len(read_data) % split_by_secs
         read_data = read_data[:-remainder]
         split_data = np.array([read_data[x:x+split_by_secs] for x in range(0, len(read_data), split_by_secs)])
