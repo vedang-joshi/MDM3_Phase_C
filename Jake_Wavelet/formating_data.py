@@ -11,8 +11,8 @@ MAX_SCALE = 127
 scales = range(1,MAX_SCALE+1)
 DIMENSIONS = 9
 waveletname = 'morl'
-train_size = 1000
-test_size= 100
+train_size = 5000
+test_size= 500
 
 # MIGIHT NEED TO CHANGE THE 9 HERE TO HOW MANY DIMENSIONS OUR DATA IS....
 # PROBABLY 4... ACCELEROMETER X,Y,Z AND HEART RATE

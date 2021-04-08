@@ -15,10 +15,12 @@ brest = [2, brest_data1, crawl_data1]
 crawl = [3, crawl_data1]
 all_data = [drowning,brest,crawl]
 
+fraction_of_data_that_is_test_data = 1/5
+
 # DIMENSIONS is the number of variables we consider in the CNN (e.g. accelerometer x,y,z,heart rate ...)
 DIMENSIONS = 3
 #all_data = [drowning, brest]
-# MAX_SCALE is the number of data point in each chunk that the labels are assigned to 
+# MAX_SCALE is the number of data point in each chunk that the labels are assigned to
 MAX_SCALE = 100
 labels = []
 formatted_data = []
@@ -46,7 +48,7 @@ print('len before', len(labels))
 ''' PICK RANDOM INDEX TO SPLIT INTO TRAIN AND TEST DATA '''
 test_labels = []
 test_data = []
-for i in range(0,int(len(labels)/3)):
+for i in range(0,int(len(labels)*(fraction_of_data_that_is_test_data))):
     random_index = random.randrange(0,len(labels))
     test_label = labels[random_index]
     test_point = formatted_data[random_index]

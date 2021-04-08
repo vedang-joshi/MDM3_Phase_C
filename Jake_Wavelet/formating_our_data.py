@@ -6,19 +6,20 @@ train_signals_ucihar, train_labels_ucihar, test_signals_ucihar, test_labels_ucih
 print('\n train data \n', train_signals_ucihar, '\n train data shape \n', test_signals_ucihar.shape)
 print( '\n train labels \n',train_labels_ucihar,'\n train labels length \n',len(test_labels_ucihar))
 
-
 scales = range(1,MAX_SCALE+1)
 
+
+print('here', test_signals_ucihar.shape, train_signals_ucihar.shape, len(train_labels_ucihar))
 waveletname = 'morl'
-train_size = 100
-test_size= 10
+train_size = train_signals_ucihar.shape[0]
+test_size= test_signals_ucihar.shape[0]
 
 # MIGIHT NEED TO CHANGE THE 9 HERE TO HOW MANY DIMENSIONS OUR DATA IS....
 # PROBABLY 4... ACCELEROMETER X,Y,Z AND HEART RATE
 train_data_cwt = np.ndarray(shape=(train_size, MAX_SCALE, MAX_SCALE, DIMENSIONS))
 
 for ii in range(0,train_size):
-    if ii % 100 == 0:
+    if ii % 80 == 0:
         print(ii)
     for jj in range(0,DIMENSIONS):
         signal = train_signals_ucihar[ii, :, jj]
@@ -29,7 +30,7 @@ print('made it past train')
 
 test_data_cwt = np.ndarray(shape=(test_size, MAX_SCALE, MAX_SCALE, DIMENSIONS))
 for ii in range(0,test_size):
-    if ii % 100 == 0:
+    if ii % 5 == 0:
         print(ii)
     for jj in range(0,DIMENSIONS):
         signal = test_signals_ucihar[ii, :, jj]
