@@ -1,10 +1,9 @@
-import random
 from itertools import count
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import numpy as np
-import pylab
+
 
 def thresholding_algo(y, lag, threshold, influence):
     signals = np.zeros(len(y))
@@ -58,7 +57,6 @@ def animate(i):
     result = thresholding_algo(y, lag=lag, threshold=threshold, influence=influence)
 
     ax1.clear()
-    #fig, (ax1, ax2) = plt.subplots(1, 2)
     ax1.plot(x,y)
     ax1.plot(x,
            result["avgFilter"], color="cyan", lw=2)
@@ -66,7 +64,6 @@ def animate(i):
            result["avgFilter"] + threshold * result["stdFilter"], color="green", lw=2)
     ax1.plot(x,
            result["avgFilter"] - threshold * result["stdFilter"], color="green", lw=2)
-    #ax2 = pylab.subplot(212)
     ax2.step(x, result["signals"], color="red", lw=2)
     ax2.set_ylim(-1.5, 1.5)
     fig.tight_layout()
