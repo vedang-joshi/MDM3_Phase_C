@@ -34,9 +34,14 @@ def thresholding_algo(y, lag, threshold, influence):
                 stdFilter = np.asarray(stdFilter))
 
 
-
-
 plt.style.use('fivethirtyeight')
+
+
+fig = plt.figure()
+#creating a subplot
+ax1 = fig.add_subplot(2,1,1)
+ax2 = fig.add_subplot(2,1,2)
+
 
 x_vals = []
 y_vals = []
@@ -52,24 +57,23 @@ def animate(i):
     y = data['heart_rate']
     result = thresholding_algo(y, lag=lag, threshold=threshold, influence=influence)
 
-    plt.cla()
-    pylab.subplot(211)
-    pylab.plot(x,y)
-    pylab.plot(x,
+    ax1.clear()
+    #fig, (ax1, ax2) = plt.subplots(1, 2)
+    ax1.plot(x,y)
+    ax1.plot(x,
            result["avgFilter"], color="cyan", lw=2)
-    pylab.plot(x,
+    ax1.plot(x,
            result["avgFilter"] + threshold * result["stdFilter"], color="green", lw=2)
-    pylab.plot(x,
+    ax1.plot(x,
            result["avgFilter"] - threshold * result["stdFilter"], color="green", lw=2)
-    pylab.subplot(212)
-    pylab.step(x, result["signals"], color="red", lw=2)
-    pylab.ylim(-1.5, 1.5)
-    plt.tight_layout()
+    #ax2 = pylab.subplot(212)
+    ax2.step(x, result["signals"], color="red", lw=2)
+    ax2.set_ylim(-1.5, 1.5)
+    fig.tight_layout()
 
 
 #print("There may be a problem at times:", np.nonzero(result['signals'])[0])
 
-ani = FuncAnimation(plt.gcf(), animate, interval=1000)
-
+ani = FuncAnimation(fig, animate, interval=1000)
 plt.tight_layout()
 plt.show()
