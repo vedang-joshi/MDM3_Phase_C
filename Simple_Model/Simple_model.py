@@ -5,7 +5,7 @@ import numpy as np
 
 def readFile(file):
 
-    with open("Breast_data1.txt") as f:
+    with open(file) as f:
         regex = re.compile('(?:\s*([+-]?\d*.\d*))')
 
         lines = f.readlines()
@@ -26,21 +26,29 @@ def readFile(file):
 
     return data
 
-file = "Breast_data1.txt"
 
-read = readFile(file)
+file = "Breast_data1.txt"
+file2 = "../Breast_data2.txt"
+file3 = "../Crawl_data1.txt"
+
+# read = readFile(file)
+# read = readFile(file2)
+read = readFile(file3)
 
 df = pd.DataFrame(read)
-
 df = df.drop('tfps', axis=1)
-df = df.drop(df.index[328:628])
 
-# print(df)
+# df = df.drop(df.index[328:628]) # Breast data1
+# df = df.drop(df.index[421:449]) # Breast data2
+df = df.drop(df.index[359:445]) # Crawl data1
 
 x = np.array(df)
 
 y = np.zeros([len(df),1])
-y[127:186] = 1
+
+# y[127:186] = 1 # Breast data1
+# y[175:243] = 1 # Breast data2
+y[159:229] = 1 # Crawl data1
 
 y_train = np.zeros([len(df),1])
 
@@ -50,17 +58,29 @@ for i in range(len(df)):
 
 print(np.mean(y == y_train))
 
-
+# --- Breast_data1 -----
 # 0-127 breast
 # 127-186 drowning
 # 186-327 breast
 # 327-628 standing
 
-# df = pd.read_csv("Breast_data1.txt")
-# df = df[23:-1]
-# print(df[0])
-# df.plot()
+# --- Breast_data2 -----
+# 0-175 breast
+# 175-243 drowning
+# 243-420 breast
+# 420-448 standing
 
+# --- Crawl_data1 -----
+# 0-159 Crawl
+# 159-229 drowning
+# 229-358 breast
+# 358-444 standing
+
+# read = readFile(file3)
+#
+# df = pd.DataFrame(read)
+# df = df.drop('tfps', axis=1)
+#
 # df.plot();
 # plt.xlabel('time every 200ms');
 # plt.legend(loc='best')
