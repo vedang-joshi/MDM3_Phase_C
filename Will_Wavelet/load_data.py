@@ -2,10 +2,11 @@ from data_reader import readFile
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
-fsData1 = '//Users/will/Documents/UNI/MDM/MDM3/Drown/iDrown/breast_swimming1.txt'
-fdData1 = '//Users/will/Documents/UNI/MDM/MDM3/Drown/iDrown/breast_drowning1.txt'
-fdData2 = '//Users/will/Documents/UNI/MDM/MDM3/Drown/iDrown/crawl_drowning1.txt'
-fsData2 = '//Users/will/Documents/UNI/MDM/MDM3/Drown/iDrown/crawl_swimming1.txt'
+fsData1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/breast_swimming1.txt'
+fdData1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/breast_drowning1.txt'
+fdData2 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/crawl_drowning1.txt'
+fsData2 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/crawl_swimming1.txt'
+
 
 
 files = [fdData2, fsData1, fsData2]
@@ -60,4 +61,3 @@ scaled_X['label'] = y.values
 print(scaled_X.head())
 
 df.to_csv('scaled_data00.csv')
-

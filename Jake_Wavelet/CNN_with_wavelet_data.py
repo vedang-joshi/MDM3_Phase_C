@@ -4,6 +4,7 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.models import Sequential
 from keras.callbacks import History
 from formating_our_data import x_train,y_train,x_test, y_test, DIMENSIONS, MAX_SCALE
+import matplotlib.pyplot as plt
 history = History()
 
 
@@ -17,7 +18,7 @@ num_classes = DIMENSIONS
 
 ''' NOT SURE WHAT batch_size IS '''
 batch_size = 16
-epochs = 10
+epochs = 4
 
 x_train = x_train.astype('float32')
 x_test = x_test.astype('float32')
@@ -50,10 +51,22 @@ model.fit(x_train, y_train,
           validation_data=(x_test, y_test),
           callbacks=[history])
 
+model.save('Jakes_CNN_model.h5')
+
+# summarize history for accuracy
+# plt.plot(history.history['accuracy'])
+# plt.plot(history.history['val_accuracy'])
+# plt.title('model accuracy')
+# plt.ylabel('accuracy')
+# plt.xlabel('epoch')
+# plt.legend(['train'
+
 train_score = model.evaluate(x_train, y_train, verbose=0)
 print('Train loss: {}, Train accuracy: {}'.format(train_score[0], train_score[1]))
 test_score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss: {}, Test accuracy: {}'.format(test_score[0], test_score[1]))
+
+
 
 '''
 *** Epoch 1/10

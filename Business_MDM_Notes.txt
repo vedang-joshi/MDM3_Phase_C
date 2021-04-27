@@ -1,0 +1,9 @@
+Desirability - who wants it and what context do they want it in?
+Feasibility - when and where does it work best. And is it feasible for people to use? Is it a better fit in a particular context?
+Viability - cost of making , are we able to make it cheaply? And will people buy it at this price? Are there similar products and do they sell for a lot/cost a lot to make
+
+
+Describe the real world problem.
+And more importantly how has this existing problem guided some of our decision making from an engineering point of view?
+
+What are the next stages needed for prototyping to make this product commercial?
