@@ -1,14 +1,14 @@
-import keras
-from keras.layers import Dense, Flatten
-from keras.layers import Conv2D, MaxPooling2D
-from keras.models import Sequential
-from keras.callbacks import History
-from formating_our_data import DIMENSIONS, MAX_SCALE, xs_and_ys
-import matplotlib.pyplot as plt
-trainscores = []
-testscores = []
-for cords in xs_and_ys:
-    x_train,y_train,x_test, y_test = cords[0],cords[1],cords[2],cords[3]
+def cnn_main(DIMENSIONS, MAX_SCALE,x_train,y_train,x_test, y_test):
+
+    import keras
+    from keras.layers import Dense, Flatten
+    from keras.layers import Conv2D, MaxPooling2D
+    from keras.models import Sequential
+    from keras.callbacks import History
+
+    import matplotlib.pyplot as plt
+
+
     history = History()
 
 
@@ -69,11 +69,8 @@ for cords in xs_and_ys:
     print('Train loss: {}, Train accuracy: {}'.format(train_score[0], train_score[1]))
     test_score = model.evaluate(x_test, y_test, verbose=0)
     print('Test loss: {}, Test accuracy: {}'.format(test_score[0], test_score[1]))
-    testscores.append(test_score)
-    trainscores.append(train_score)
+    return test_score, train_score
 
-print(testscores)
-print(trainscores)
 
 '''
 *** Epoch 1/10
