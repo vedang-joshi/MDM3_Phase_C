@@ -28,20 +28,3 @@ def readFile(infile):
     return data
 
 
-bData1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Breast_data1.txt'
-bData2 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/breast__1.txt'
-cData1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/crawl__3.txt'
-
-read = readFile(bData2)
-
-df = pd.DataFrame(read)
-print(df)
-
-df = df.drop('tfps', axis=1)
-
-
-plt.figure(figsize=(15,8));
-df.plot();
-plt.xlabel('time every 200ms');
-plt.legend(loc='best')
-plt.show()
