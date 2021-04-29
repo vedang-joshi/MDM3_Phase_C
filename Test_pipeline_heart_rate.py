@@ -4,6 +4,9 @@ import pandas as pd # version 1.0.5
 import matplotlib.pyplot as plt
 import os
 from itertools import accumulate
+import numpy as np
+import time
+import csv
 
 def file_ext_to_list(empty_list, ext):
     for root, dirs_list, files_list in os.walk(dir):
@@ -68,6 +71,7 @@ for csvfile in csv_file_name_list:
 
     dataframe_list.append(result)
 
+'''
 # plot on same axes
 ax = plt.gca()
 for i in range(len(dataframe_list)):
@@ -75,3 +79,37 @@ for i in range(len(dataframe_list)):
     plt.ylabel('heart rate (bpm)')
     plt.xlabel('time (sec)')
 plt.show()
+'''
+
+
+dataframe = pd.DataFrame(dataframe_list[1].heart_rate)
+dataframe['time'] = dataframe_list[1].time
+
+LargeTimeList = []
+LargeHRList = []
+
+# Iterate over each row
+for index, rows in dataframe.iterrows():
+    # Create list for the current row
+    # append the list to the final list
+    LargeTimeList.append(rows.time)
+    LargeHRList.append(rows.heart_rate)
+
+# Print the list
+
+LargeTimeList = np.array(LargeTimeList)
+LargeHRList = np.array(LargeHRList)
+
+a_zip = zip(LargeTimeList, LargeHRList)
+zipped_list = list(a_zip)
+
+
+f = open('newdata.csv', 'w')
+
+with f:
+    writer = csv.writer(f)
+    writer.writerow(["time", "heart_rate"])
+    for row in zipped_list:
+        writer.writerow(row)
+        f.flush()
+        time.sleep(0.1)

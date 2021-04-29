@@ -11,8 +11,8 @@ MAX_SCALE = 127
 scales = range(1,MAX_SCALE+1)
 DIMENSIONS = 9
 waveletname = 'morl'
-train_size = 1000
-test_size= 100
+train_size = 5000
+test_size= 500
 
 # MIGIHT NEED TO CHANGE THE 9 HERE TO HOW MANY DIMENSIONS OUR DATA IS....
 # PROBABLY 4... ACCELEROMETER X,Y,Z AND HEART RATE
@@ -28,6 +28,7 @@ for ii in range(0,train_size):
         train_data_cwt[ii, :, :, jj] = coeff_
 
 test_data_cwt = np.ndarray(shape=(test_size, MAX_SCALE, MAX_SCALE, DIMENSIONS))
+print(test_data_cwt.shape)
 for ii in range(0,test_size):
     if ii % 100 == 0:
         print(ii)
