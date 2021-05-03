@@ -5,8 +5,8 @@ from transforming_data import *
 train_signals_ucihar, train_labels_ucihar, test_signals_ucihar, test_labels_ucihar = train_data, train_labels, test_data, test_labels
 print('\n train data \n', train_signals_ucihar, '\n train data shape \n', test_signals_ucihar.shape)
 print( '\n train labels \n',train_labels_ucihar,'\n train labels length \n',len(test_labels_ucihar))
-window = 10 # 10 data point per window
-scales = range(1,window+1)
+
+scales = range(1,MAX_SCALE+1)
 
 
 print('here', test_signals_ucihar.shape, train_signals_ucihar.shape, len(train_labels_ucihar))
@@ -16,7 +16,7 @@ test_size= test_signals_ucihar.shape[0]*window
 
 
 # This is where it needs to change to sliding window
-
+window = 10 # 10 data point per window
 # MIGIHT NEED TO CHANGE THE 9 HERE TO HOW MANY DIMENSIONS OUR DATA IS....
 # PROBABLY 4... ACCELEROMETER X,Y,Z AND HEART RATE
 train_data_cwt = np.ndarray(shape=(train_size, window, window, DIMENSIONS))

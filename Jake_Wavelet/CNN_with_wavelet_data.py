@@ -3,12 +3,12 @@ from keras.layers import Dense, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras.models import Sequential
 from keras.callbacks import History
-from formating_our_data import DIMENSIONS, MAX_SCALE, xs_and_ys
+from formating_our_data import DIMENSIONS, MAX_SCALE, x_train,y_train,x_test, y_test
 import matplotlib.pyplot as plt
 trainscores = []
 testscores = []
 for cords in xs_and_ys:
-    x_train,y_train,x_test, y_test = cords[0],cords[1],cords[2],cords[3]
+     = cords[0],cords[1],cords[2],cords[3]
     history = History()
 
 
