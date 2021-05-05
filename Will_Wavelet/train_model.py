@@ -1,27 +1,21 @@
-import pandas as pd
-import scipy.stats as stats
+
 import numpy as np
-from sklearn.model_selection import train_test_split
+
 import matplotlib.pyplot as plt
-from tensorflow.keras import Sequential
+from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Flatten, Dense, Dropout
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import ModelCheckpoint
 from sklearn import metrics
-#from tensorflow.keras import backend as K
-#import seaborn as sns
 
 
-scaled_X = pd.read_csv('scaled_data00.csv')
+#
+# scaled_X = pd.read_csv('scaled_data.csv')
+# swimDrown = pd.read_csv('swimDrown_data.csv')
+#
+def get_frames(df, frame_size, hop_size, N_FEATURES):
 
-Fs = 15
-frame_size = Fs*4 # 60
-hop_size = Fs*2 # 30
-
-
-def get_frames(df, frame_size, hop_size):
-    N_FEATURES = 3
 
     frames = []
     labels = []
@@ -31,7 +25,7 @@ def get_frames(df, frame_size, hop_size):
         z = df['z'].values[i: i + frame_size]
 
         # Retrieve the most often used label in this segment
-        label = stats.mode(df['label'][i: i + frame_size])[0][0]  #'label'
+        label = stats.mode(df['label'][i: i + frame_size])[0][0]
         frames.append([x, y, z])
         labels.append(label)
 
@@ -41,20 +35,62 @@ def get_frames(df, frame_size, hop_size):
 
     return frames, labels
 
+def prep_train_data(files):
+    data = pd.DataFrame()
+    for i in files:
+        read1 = readFile(i)
+        df1 = pd.DataFrame(read1)
+        df1 = df1.drop('tfps', axis=1)
+        if "swim" in i:
+            df1['activity'] = "Swimming"
+        elif "drown" in i:
+            df1['activity'] = "Drowning"
+        else:
+            print('Wrong name')
+        data = pd.concat([data, df1])
 
-X, y = get_frames(scaled_X, frame_size, hop_size)  #unscaled
-print('first =', X.shape, y.shape)
+    data['x'] = data['x'].astype('float')
+    data['y'] = data['y'].astype('float')
+    data['z'] = data['z'].astype('float')
+    labels = data['activity'].value_counts()
+    def round_down(n, decimals=0):
+        multiplier = 10 ** decimals
+        return math.floor(n * multiplier) / multiplier
+    lab = min(labels)
+    val = int(round_down(lab, -2))
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0, stratify = y)
-print("shape=", X_train[0].shape, X_test[0].shape)
+    drowning = data[data['activity'] == 'Drowning'].head(val)
+    swimming = data[data['activity'] == 'Swimming'].head(val)
 
-data08 = int(round(X.shape[0]*0.8))
-data02 = int(round(X.shape[0]*0.2))
-print(data08, data02)
-X_train = X_train.reshape(data08, 60, 3, 1)
-X_test = X_test.reshape(data02, 60, 3, 1)
+    balanced_data = pd.DataFrame()
+    balanced_data = pd.concat([drowning, swimming])
+    label = LabelEncoder()
+    balanced_data['label'] = label.fit_transform(balanced_data['activity'])
+    X = balanced_data[['x', 'y', 'z']]
+    y = balanced_data['label']
 
-print(X_train[0].shape, X_test[0].shape)
+    scaler = StandardScaler()
+    X = scaler.fit_transform(X)
+
+    scaled = pd.DataFrame(data=X, columns=['x', 'y', 'z'])
+    scaled['label'] = y.values
+
+    X, y = get_frames(scaled, frame_size, hop_size, N_FEATURES)
+    print('first =', X.shape, y.shape)
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0, stratify=y)
+    print("shape=", X_train[0].shape, X_test[0].shape)
+
+    data08 = int(round(X.shape[0] * 0.8))
+    data02 = int(round(X.shape[0] * 0.2))
+    print(data08, data02)
+    X_train = X_train.reshape(data08, frame_size, N_FEATURES, 1)
+    X_test = X_test.reshape(data02, frame_size, N_FEATURES, 1)
+
+    print(X_train[0].shape, X_test[0].shape)
+
+    return X_train, X_test, y_train, y_test
+
 
 ##MODEL
 
@@ -80,10 +116,10 @@ def build_model2(activation, input_shape):
     model = Sequential()
 
     # 2 Convolution layer with Max polling
-    model.add(Conv2D(32, (2, 2), activation=activation, padding='same', input_shape=input_shape))
-    model.add(MaxPooling2D((2,2), strides=(2,2), padding='same'))
-    model.add(Conv2D(64, (2, 2), activation=activation, padding='same', kernel_initializer="he_normal"))
-    model.add(MaxPooling2D((2,2), strides=(2,2), padding='same'))
+    model.add(Conv2D(32, (5, 5), activation=activation, padding='same', input_shape=input_shape))
+    model.add(MaxPooling2D((2,2), strides=(2,2)))
+    model.add(Conv2D(64, (5, 2), activation=activation, padding='same', kernel_initializer="he_normal"))
+    model.add(MaxPooling2D((2,2), strides=(2,2)))
     model.add(Flatten())
 
     # 3 Full connected layer
@@ -118,15 +154,14 @@ def compile_and_fit_model(model, X_train, y_train, X_test, y_test, n_epochs):
 
     return model, history
 
-input_shape = X_train[0].shape
-
-cnn_model = build_model1("relu", input_shape)
-
-model, history = compile_and_fit_model(cnn_model, X_train, y_train, X_test, y_test, 15)
-
-#model.compile(optimizer=Adam(learning_rate = 0.001), loss = 'sparse_categorical_crossentropy', metrics = ['accuracy'])
-#history = model.fit(X_train, y_train, epochs = 10, validation_data= (X_test, y_test), verbose=1)
-#model.save('initial_model.h5')
+# input_shape = X_train[0].shape
+#
+# cnn_model = build_model1("relu", input_shape)
+# #cnn_model.save('initial_model.h5')
+#
+# model, history = compile_and_fit_model(cnn_model, X_train, y_train, X_test, y_test, 30)
+#
+# model.save('scaled_model.h5')
 
 
 ##VISULISE
@@ -151,12 +186,12 @@ def plot_learningCurve(history, epochs):
   plt.legend(['Train', 'Val'], loc='upper left')
   plt.show()
 
-plot_learningCurve(history, 15)
+#plot_learningCurve(history, 15)
 
 
 #Confusion Matrix
 
-LABEL_NAMES = ['Drowning', 'Breast', 'Crawl']
+LABEL_NAMES = ['Drowning','Swimming'] #'Breast', 'Crawl'
 def create_confusion_matrix(y_pred, y_test):
     # calculate the confusion matrix
     confmat = metrics.confusion_matrix(y_true=y_test, y_pred=y_pred)
@@ -188,11 +223,17 @@ def create_confusion_matrix(y_pred, y_test):
     plt.tight_layout()
     plt.show()
 
-
+#model = load_model('initial_model.h5')
 # make predictions for test data
-y_pred = model.predict_classes(X_test)
-# determine the total accuracy
-accuracy = metrics.accuracy_score(y_test, y_pred)
-print("Accuracy: %.2f%%" % (accuracy * 100.0))
+# y_pred = model.predict_classes(X_test)
+# # determine the total accuracy
+# accuracy = metrics.accuracy_score(y_test, y_pred)
+# print("Accuracy: %.2f%%" % (accuracy * 100.0))
 
-create_confusion_matrix(y_pred, y_test)
+#create_confusion_matrix(y_pred, y_test)
+
+
+# prob_d = model.predict_proba(X_test)[:,0]
+# prob_s = model.predict_proba(X_test)[:,1]
+# print(prob_d, prob_s)
+
