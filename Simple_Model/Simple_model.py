@@ -27,6 +27,22 @@ def readFile(file):
 
     return data
 
+def readFileHeart(file):
+
+    with open(file) as f:
+
+        lines = f.readlines()
+
+    drown_heart_list = []
+    swim_heart_list = []
+
+    for line in lines[1:]:
+        drown_heart_list.append(list())
+
+    data = {'x': np.array(x), 'y': np.array(y), 'z': np.array(z), 'tfps': np.array(tfps)}
+
+    return data
+
 
 file = "Breast_data1.txt"
 file2 = "../Breast_data2.txt"
@@ -38,14 +54,26 @@ file7 = "../crawl__3.txt"
 file8 = "../crawl_drowning1.txt"
 file9 = "../crawl_swimming1.txt"
 
-vedang_drown = "../Vedang_Accelerometer_Crawl/26-28Apr_accelerometer_heart_rate_data/crawl__25_drowning.txt"
-vedang_swim = "../Vedang_Accelerometer_Crawl/26-28Apr_accelerometer_heart_rate_data/crawl__25_swimming.txt"
+# vedang_drown = "../Vedang_Accelerometer_Crawl/26-28Apr_accelerometer_heart_rate_data/crawl__25_drowning.txt"
+# vedang_swim = "../Vedang_Accelerometer_Crawl/26-28Apr_accelerometer_heart_rate_data/crawl__25_swimming.txt"
+vedang_drown = "../Vedang_Accelerometer_Crawl/26-28Apr_accelerometer_heart_rate_data/crawl__26_drowning.txt"
+vedang_swim = "../Vedang_Accelerometer_Crawl/26-28Apr_accelerometer_heart_rate_data/crawl__26_swimming.txt"
 heart_file_loc = "../Vedang_Accelerometer_Crawl/26-28Apr_accelerometer_heart_rate_data/heart_rate_data.csv"
 
+# heart_file = readFileHeart(heart_file_loc)
+# df_heart = pd.DataFrame(heart_file)
+# drown_heart = [98, 99, 100]
+# swim_heart = [70, 70, 70, 116, 114, 108, 101, 96, 94, 92, 91, 95]
+drown_heart = [76, 76]
+swim_heart = [70, 70, 70, 71, 71, 67, 67, 72, 74, 74, 76, 77, 76]
 
-drown_heart = [98, 99, 100]
-swim_heart = [70, 70, 70, 116, 114, 108, 101, 96, 94, 92, 91, 95]
-
+# with open(heart_file_loc) as f:
+#     lines = f.readlines()
+#
+# x = list(lines[1][19:71])
+# print(x)
+# print(lines[1])
+# print(lines[1][19:71])
 
 # read = readFile(file)
 # read = readFile(file2)
@@ -64,8 +92,6 @@ df2 = df2.drop('tfps', axis=1)
 
 N = len(df)/len(drown_heart)
 N2 = len(df2)/len(swim_heart)
-print(N)
-print(N2)
 
 x = np.array(df)
 
@@ -83,7 +109,6 @@ y[:] = 1
 y_train = np.zeros([len(df),1])
 y2_train = np.zeros([len(df2),1])
 
-print(math.floor(730/N))
 for i in range(len(df)):
     if x[i,1] > 1 and drown_heart[math.floor(i/N)] > 90:
         y_train[i] = 1
