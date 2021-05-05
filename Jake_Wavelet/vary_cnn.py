@@ -22,7 +22,7 @@ def cnn_main(DIMENSIONS, MAX_SCALE,x_train,y_train,x_test, y_test):
 
     ''' NOT SURE WHAT batch_size IS '''
     batch_size = 16
-    epochs = 10
+    epochs = 5
 
     x_train = x_train.astype('float32')
     x_test = x_test.astype('float32')

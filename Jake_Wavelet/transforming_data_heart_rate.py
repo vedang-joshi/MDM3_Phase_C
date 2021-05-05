@@ -12,50 +12,6 @@ import ast
 from os import listdir
 from os.path import isfile, join
 
-
-
-#
-# drown_data2= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/breast_drowning1.txt'
-# breast_data1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/breast_swimming1.txt'
-# drown_data1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/crawl_drowning1.txt'
-# crawl_data1 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/crawl_swimming1.txt'
-# cdrown_data5 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__5_drowning.txt'
-# crawl_data5 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__5_swimming.txt'
-# cdrown_data13 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__13_drowning.txt'
-# crawl_data13 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__13_swimming.txt'
-# cdrown_data14 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__14_drowning.txt'
-# crawl_data14 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__14_swimming.txt'
-# cdrown_data15 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__15_drowning.txt'
-# crawl_data15 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__15_swimming.txt'
-# cdrown_data16 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__16_drowning.txt'
-# crawl_data16 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__16_swimming.txt'
-# cdrown_data17 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__17_drowning.txt'
-# crawl_data17 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__17_swimming.txt'
-# cdrown_data18 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__18_drowning.txt'
-# crawl_data18 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__18_swimming.txt'
-# cdrown_data19 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__19_drowning.txt'
-# crawl_data19 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__19_swimming.txt'
-# cdrown_data20 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__20_drowning.txt'
-# crawl_data20 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/crawl__20_swimming.txt'
-#
-#
-#
-# breast_data4 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__4_swimming.txt'
-# drown_data4 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__4_drowning.txt'
-# breast_data5= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__5_swimming.txt'
-# drown_data5= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__5_drowning.txt'
-# breast_data6= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__6_swimming.txt'
-# drown_data6= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__6_drowning.txt'
-# breast_data7= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__7_swimming.txt'
-# drown_data7= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__7_drowning.txt'
-#
-#
-# breast_data10= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__10_swimming.txt'
-# drown_data10 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__10_drowning.txt'
-# breast_data11= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__11_swimming.txt'
-# drown_data11 = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__11_drowning.txt'
-# breast_data12= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__12_swimming.txt'
-# drown_data12= '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Breast/breast__12_drowning.txt'
 mypath = '/Users/jakebeard/Documents/GitHub/MDM3_Phase_C/Vedang_Accelerometer_Crawl/26-28Apr_accelerometer_heart_rate_data'
 
 onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
@@ -88,11 +44,10 @@ all_data = [swimming_data,drowning_data]
 fraction_of_data_that_is_test_data = 1/5
 
 # DIMENSIONS is the number of variables we consider in the CNN (e.g. accelerometer x,y,z,heart rate ...)
-DIMENSIONS = 3
+DIMENSIONS = 4
 #all_data = [drowning, breast]
 # MAX_SCALE is the number of data point in each chunk that the labels are assigned to
 m_scales = [300,200,100,50,25,20]
-m_scales = [100]
 drs = []
 trds = []
 tsds = []
@@ -112,20 +67,27 @@ for MAX_SCALE in m_scales:
             trash_data, read_data = readFile(set_of_data)
             split_by_secs = MAX_SCALE
             remainder = len(read_data) % split_by_secs
-            read_data = read_data[:-remainder]
+            print('remainder', remainder)
+            if remainder == 0:
+                read_data = read_data
+            else:
+                read_data = read_data[:-remainder]
+            print(read_data)
             length_data = len(read_data)
-            hr_data = heart_rate_df['Heart_rate_extract'].iloc[HR_i_count]
-            hr_data = ast.literal_eval(hr_data)
-            hr_swim = hr_data[0:7]
-            hr_drown = hr_data[7:]
+            hr_swim = heart_rate_df['Heart_rate_swimming'].iloc[HR_i_count]
+            hr_swim = ast.literal_eval(hr_swim)
+            hr_drown = heart_rate_df['Heart_rate_drowning'].iloc[HR_i_count]
+            hr_drown = ast.literal_eval(hr_drown)
             split_data = np.array([read_data[x:x+split_by_secs] for x in range(0, len(read_data), split_by_secs)])
+            print(split_data)
             if label_idx == 0:
                 # use swim data
                 num_hr_data_points = int(MAX_SCALE/len(hr_swim))
                 original_num_hr_data_points = num_hr_data_points
                 print(num_hr_data_points)
                 init_data_points = 0
-                hr_matrix = np.zeros((split_data.shape[0],split_data.shape[1],split_data.shape[2]+1))
+                print('hape', split_data.shape)
+                hr_matrix = np.zeros((split_data.shape[0],split_data.shape[1],DIMENSIONS))
                 for hr in hr_swim[:-1]:
                     for i in range(init_data_points,num_hr_data_points):
 
@@ -145,7 +107,7 @@ for MAX_SCALE in m_scales:
                  num_hr_data_points = int(MAX_SCALE/len(hr_drown))
                  original_num_hr_data_points = num_hr_data_points
                  init_data_points = 0
-                 hr_matrix = np.zeros((split_data.shape[0],split_data.shape[1],split_data.shape[2]+1))
+                 hr_matrix = np.zeros((split_data.shape[0],split_data.shape[1],DIMENSIONS))
                  for hr in hr_drown[:-1]:
                      for i in range(init_data_points,num_hr_data_points):
                          hr_matrix[:,i,-1]=hr
