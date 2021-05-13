@@ -17,6 +17,8 @@ pip install keras
 ### Results
 ![cnn results](cnn_results.png) ![confusion results](confusion_matrix.png)
 
+![video_mdm3_3](https://user-images.githubusercontent.com/50496437/118116182-dce5e700-b3e1-11eb-9d3a-881d869aa761.gif)
+
 
 ## Authors
 
