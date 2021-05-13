@@ -15,7 +15,6 @@ pip install keras
 ```
 
 ### Results
-For the CNN models, we get the following results:
 ![cnn results](cnn_results.png) ![confusion results](confusion_matrix.png)
 
 
