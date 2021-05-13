@@ -5,7 +5,7 @@ Recently, the frequency of drowning incidences has been increasing. A study reve
 
 ### Prerequisites
 
-Install the following dependencies to your virtul environment:
+Install the following dependencies to your virtual environment:
 
 ```
 pip install scikit-learn
